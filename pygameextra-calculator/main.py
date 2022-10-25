@@ -35,29 +35,29 @@ numbersr = [
     (166 + 19, 119, 30, 30),
 ]
 # text
-multyplyt = pe.text.quick.small('X', pe.math.center(multyplyr))
-dividet = pe.text.quick.small('/', pe.math.center(divider))
-addt = pe.text.quick.small('+', pe.math.center(addr))
-subtractt = pe.text.quick.small('-', pe.math.center(subtractr))
-entert = pe.text.quick.small('=', pe.math.center(enterr))
-dott = pe.text.quick.small('.', pe.math.center(dotr))
-deletet = pe.text.quick.small('<', pe.math.center(deleter))
-cleart = pe.text.quick.small('C', pe.math.center(clearr))
-exitt = pe.text.quick.small('~', pe.math.center(exitr))
-math = pe.text.make('0', 'freesansbold.ttf', 20, pe.math.center((0, 0, 215, 59)), [(255, 255, 255), None])
+font_size = 20
+multyplyt = pe.text.quick('X', font_size, pe.math.center(multyplyr))
+dividet = pe.text.quick('/', font_size, pe.math.center(divider))
+addt = pe.text.quick('+', font_size, pe.math.center(addr))
+subtractt = pe.text.quick('-', font_size, pe.math.center(subtractr))
+entert = pe.text.quick('=', font_size, pe.math.center(enterr))
+dott = pe.text.quick('.', font_size, pe.math.center(dotr))
+deletet = pe.text.quick('<', font_size, pe.math.center(deleter))
+cleart = pe.text.quick('C', font_size, pe.math.center(clearr))
+exitt = pe.text.quick('~', font_size, pe.math.center(exitr))
+math = pe.text.Text('0', 'freesansbold.ttf', 20, pe.math.center((0, 0, 215, 59)), [(255, 255, 255), None])
 numberst = [None] * len(numbersr)
 i = 0
 for x in numbersr:
-    numberst[i] = pe.text.quick.small(str(i), pe.math.center(x))
+    numberst[i] = pe.text.quick(str(i), 20, pe.math.center(x))
     i = i + 1
 
 # color
 highlight = (200, 200, 200)
 normal = (180, 180, 180)
 background = (50, 50, 50)
-math.setup(math)
 math.background = background
-math.init(math)
+math.init()
 valueR = None
 updatemath = True
 op = None
@@ -70,7 +70,7 @@ def mu():  # mu is Math Update aka, it updates the text element!
     global updatemath
     updatemath = True
     math.text = str(value)
-    math.init(math)
+    math.init()
 
 
 def enter():
@@ -84,7 +84,7 @@ def enter():
     print('calculate')
     if op == None:
         math.text = '= ' + str(value)
-        math.init(math)
+        math.init()
         updatemath = True
         return
     else:
@@ -95,7 +95,7 @@ def enter():
                 math.text = 'Syntax Error ' + str(valueR) + '/' + str(value)
             else:
                 return
-            math.init(math)
+            math.init()
             updatemath = True
         if op == 0:
             v = float(valueR) * float(value)
@@ -138,7 +138,7 @@ def enter():
             op = None
             opdone = True
         math.text = '= ' + str(value)
-        math.init(math)
+        math.init()
         updatemath = True
 
 
@@ -155,16 +155,16 @@ def multyply():
     if valueR == None:
         print('math ok')
         math.text = 'X'
-        math.init(math)
+        math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
             math.text = str(value) + ' X'
-            math.init(math)
+            math.init()
         else:
             math.text = 'X'
-            math.init(math)
+            math.init()
     if opdone:
         valueR = value
         value = '0'
@@ -186,16 +186,16 @@ def divide():
     if valueR == None:
         print('math ok')
         math.text = '/'
-        math.init(math)
+        math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
             math.text = str(value) + ' /'
-            math.init(math)
+            math.init()
         else:
             math.text = '/'
-            math.init(math)
+            math.init()
     if opdone:
         valueR = value
         value = '0'
@@ -217,16 +217,16 @@ def add():
     if valueR == None:
         print('math ok')
         math.text = '+'
-        math.init(math)
+        math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
             math.text = str(value) + ' +'
-            math.init(math)
+            math.init()
         else:
             math.text = '+'
-            math.init(math)
+            math.init()
     if opdone:
         valueR = value
         value = '0'
@@ -248,16 +248,16 @@ def subtract():
     if valueR == None:
         print('math ok')
         math.text = '-'
-        math.init(math)
+        math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
             math.text = str(value) + ' -'
-            math.init(math)
+            math.init()
         else:
             math.text = '-'
-            math.init(math)
+            math.init()
     if opdone:
         valueR = value
         value = '0'
@@ -318,7 +318,7 @@ def clear():
     op = None
     opdone = True
     math.text = '0'
-    math.init(math)
+    math.init()
     title()
 
 pe.fill.full(background)  # fills the screen with white
@@ -335,7 +335,7 @@ while run:
         pe.event.quitcheckauto()
     if updatemath:
         pe.draw.rect(background, (0, 0, 170, 59), 0)
-        pe.text.display(math)
+        math.display()
         updatemath = False
     pe.button.rect(multyplyr, normal, highlight, multyplyt, multyply)
     pe.button.rect(divider, normal, highlight, dividet, divide)

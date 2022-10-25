@@ -7,7 +7,7 @@ They needed a small calculator for their raspberry pi. I came and delivered this
 
 ## Usage.
 
-This program was made for the old pygameextra 1.x
+This program was made for the old pygameextra 2.x BETA
 
-You can find a modified and more new version running on new pygameextra 2.x BETA
+You can find the original version running on old pygameextra 1.x
 
