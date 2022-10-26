@@ -1,56 +1,92 @@
 import pygameextra as pe
 import os
+from math import ceil
 
-pe.init()
-
-pe.display.make((215, 170), 'Calculator')  # makes a display
+pe.init((0, 0))
+pe.display.make((215, 170), 'Calculator', pe.display.DISPLAY_MODE_RESIZABLE)  # makes a display
+w, h = pe.display.get_size()
 
 
 def title():
     os.system('clear')
-    print('Pygame Extra calculator by RedstoneHair')
+    print('Pygame Extra calculator by RedTTG')
 
 
 title()
+mm: float
+mm2: float
+def init1():
+	global mm, mm2
+	mm = w / 215
+	mm2 = h / 170
 # rects
-multyplyr = (0, 59, 53, 56)
-divider = (53, 59, 53, 56)
-addr = (0, 115, 53, 56)
-subtractr = (53, 115, 53, 56)
-enterr = (166 + 19, 149, 30, 21)
-dotr = (106 + 19, 149, 30, 21)
-deleter = (106, 59, 19, 42)
-clearr = (106, 101, 19, 42)
-exitr = (106, 143, 19, 28)
-numbersr = [
-    (136 + 19, 149, 30, 21),
-    (106 + 19, 59, 30, 30),
-    (136 + 19, 59, 30, 30),
-    (166 + 19, 59, 30, 30),
-    (106 + 19, 89, 30, 30),
-    (136 + 19, 89, 30, 30),
-    (166 + 19, 89, 30, 30),
-    (106 + 19, 119, 30, 30),
-    (136 + 19, 119, 30, 30),
-    (166 + 19, 119, 30, 30),
-]
+multyplyr: tuple = None
+divider: tuple= None
+addr: tuple= None
+subtractr: tuple= None
+enterr: tuple= None
+dotr: tuple= None
+deleter: tuple= None
+clerr: tuple= None
+exitr: tuple= None
+numbersr: list= None
+def init2():
+	global multyplyr, divider, addr, subtractr, enterr, dotr, deleter, clearr, exitr, numbersr
+	multyplyr = (0, ceil(59*mm2), ceil(53*mm), ceil(56*mm2))
+	divider = (ceil(53*mm), ceil(59*mm2), ceil(53*mm), ceil(56*mm2))
+	addr = (0, ceil(115*mm2), ceil(53*mm), ceil(56*mm2))
+	subtractr = (ceil(53*mm), ceil(115*mm2), ceil(53*mm), ceil(56*mm2))
+	enterr = (ceil(185*mm), ceil(149*mm2), ceil(30*mm), ceil(21*mm2))
+	dotr = (ceil(125*mm), ceil(149*mm2), ceil(30*mm), ceil(21*mm2))
+	deleter = (ceil(106*mm), ceil(59*mm2), ceil(19*mm), ceil(42*mm2))
+	clearr = (ceil(106*mm), ceil(101*mm2), ceil(19*mm), ceil(42*mm2))
+	exitr = (ceil(106*mm), ceil(143*mm2), ceil(19*mm), ceil(28*mm2))
+	numbersr = [
+	    (136 + 19, 149, 30, 21),
+	    (106 + 19, 59, 30, 30),
+	    (136 + 19, 59, 30, 30),
+	    (166 + 19, 59, 30, 30),
+	    (106 + 19, 89, 30, 30),
+	    (136 + 19, 89, 30, 30),
+	    (166 + 19, 89, 30, 30),
+	    (106 + 19, 119, 30, 30),
+	    (136 + 19, 119, 30, 30),
+	    (166 + 19, 119, 30, 30),
+	]
+	numbersr = [(ceil(x[0]*mm), ceil(x[1]*mm2), ceil(x[2]*mm), ceil(x[3]*mm2)) for x in numbersr]
 # text
-font_size = 20
-multyplyt = pe.text.quick('X', font_size, pe.math.center(multyplyr))
-dividet = pe.text.quick('/', font_size, pe.math.center(divider))
-addt = pe.text.quick('+', font_size, pe.math.center(addr))
-subtractt = pe.text.quick('-', font_size, pe.math.center(subtractr))
-entert = pe.text.quick('=', font_size, pe.math.center(enterr))
-dott = pe.text.quick('.', font_size, pe.math.center(dotr))
-deletet = pe.text.quick('<', font_size, pe.math.center(deleter))
-cleart = pe.text.quick('C', font_size, pe.math.center(clearr))
-exitt = pe.text.quick('~', font_size, pe.math.center(exitr))
-math = pe.text.Text('0', 'freesansbold.ttf', 20, pe.math.center((0, 0, 215, 59)), [(255, 255, 255), None])
-numberst = [None] * len(numbersr)
-i = 0
-for x in numbersr:
-    numberst[i] = pe.text.quick(str(i), 20, pe.math.center(x))
-    i = i + 1
+multyplyt: pe.text.Text = None
+dividet: pe.text.Text = None
+addt: pe.text.Text = None
+subtractt: pe.text.Text = None
+entert: pe.text.Text = None
+dott: pe.text.Text = None
+deletet: pe.text.Text = None
+cleart: pe.text.Text = None
+exitt: pe.text.Text = None
+math: pe.text.Text = None
+numberst: list = None
+def init3(v='0'):
+	global multyplyt, dividet, addt, subtractt, entert, dott, deletet, cleart, exitt, math, numberst
+	font_size = int((20 * mm * mm2)/mm2)
+	
+	multyplyt = pe.text.quick('X', font_size, pe.math.center(multyplyr))
+	dividet = pe.text.quick('/', font_size, pe.math.center(divider))
+	addt = pe.text.quick('+', font_size, pe.math.center(addr))
+	subtractt = pe.text.quick('-', font_size, pe.math.center(subtractr))
+	entert = pe.text.quick('=', font_size, pe.math.center(enterr))
+	dott = pe.text.quick('.', font_size, pe.math.center(dotr))
+	deletet = pe.text.quick('<', font_size, pe.math.center(deleter))
+	cleart = pe.text.quick('C', font_size, pe.math.center(clearr))
+	exitt = pe.text.quick('~', font_size, pe.math.center(exitr))
+	math = pe.text.Text(v, 'freesansbold.ttf', font_size, pe.math.center((0, 0, 215*mm, 59*mm2)), [(255, 255, 255), None])
+	numberst = [None] * len(numbersr)
+	for i, x in enumerate(numbersr):
+	    numberst[i] = pe.text.quick(str(i), font_size, pe.math.center(x))
+
+init1()
+init2()
+init3()
 
 # color
 highlight = (200, 200, 200)
@@ -69,7 +105,11 @@ def mu():  # mu is Math Update aka, it updates the text element!
     global math
     global updatemath
     updatemath = True
-    math.text = str(value)
+    if op != None:
+    	opc = '×' if op == 0 else '÷' if op == 1 else '+' if op == 2 else '-'
+    	math.text = f'{valueR} {opc} {value}'
+    else:
+    	math.text = str(value)
     math.init()
 
 
@@ -151,19 +191,20 @@ def multyply():
     global op
     global opdone
     updatemath = True
+    if op == 0: return
     print('multyply')
     if valueR == None:
         print('math ok')
-        math.text = 'X'
+        math.text = str(value) + ' ×'
         math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
-            math.text = str(value) + ' X'
+            math.text = str(value) + ' ×'
             math.init()
         else:
-            math.text = 'X'
+            math.text = '×'
             math.init()
     if opdone:
         valueR = value
@@ -182,19 +223,20 @@ def divide():
     global op
     global opdone
     updatemath = True
+    if op == 1: return
     print('divide')
     if valueR == None:
         print('math ok')
-        math.text = '/'
+        math.text = str(value) + ' ÷'
         math.init()
     else:
         print('math not ok')
         if opdone:
             enter()
-            math.text = str(value) + ' /'
+            math.text = str(value) + ' ÷'
             math.init()
         else:
-            math.text = '/'
+            math.text = '÷'
             math.init()
     if opdone:
         valueR = value
@@ -213,10 +255,11 @@ def add():
     global op
     global opdone
     updatemath = True
+    if op == 2: return
     print('add')
     if valueR == None:
         print('math ok')
-        math.text = '+'
+        math.text = str(value) + ' +'
         math.init()
     else:
         print('math not ok')
@@ -244,10 +287,11 @@ def subtract():
     global op
     global opdone
     updatemath = True
+    if op == 3: return
     print('subtract')
     if valueR == None:
         print('math ok')
-        math.text = '-'
+        math.text = str(value) + ' -'
         math.init()
     else:
         print('math not ok')
@@ -256,7 +300,7 @@ def subtract():
             math.text = str(value) + ' -'
             math.init()
         else:
-            math.text = '-'
+            math.text = str(value) + ' -'
             math.init()
     if opdone:
         valueR = value
@@ -313,6 +357,7 @@ def clear():
     global op
     global opdone
     global valueR
+    value = 0
     valueR = None
     updatemath = True
     op = None
@@ -333,8 +378,15 @@ def exit_calc():
 while run:
     for pe.event.c in pe.event.get():
         pe.event.quitcheckauto()
+        if pe.event.resizeCheck():
+        	pe.event.rundown()
+        	w, h = pe.display.get_size()
+        	init1()
+        	init2()
+        	init3(math.text)
+        	updatemath = True
     if updatemath:
-        pe.draw.rect(background, (0, 0, 170, 59), 0)
+        pe.draw.rect(background, (0, 0, w, 59*mm2), 0)
         math.display()
         updatemath = False
     pe.button.rect(multyplyr, normal, highlight, multyplyt, multyply)
@@ -353,5 +405,3 @@ while run:
     # pe.sleep(10)
     pe.pygame.time.Clock().tick(60)
     pe.display.update()
-pe.Pquit()
-exit()
